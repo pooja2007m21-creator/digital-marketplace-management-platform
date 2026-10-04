@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Categories - Digital Marketplace</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-marketplace">
+    <div class="container">
+      <a class="navbar-brand brand-logo" href="index.html">
+        <i class="fas fa-cubes-stacked text-primary"></i>
+        <span>Market</span>Place
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#marketplaceNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="marketplaceNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+          <li class="nav-item"><a class="nav-link active" href="categories.html">Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.html?has_discount=true">Offers</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-3">
+          <a href="wishlist.html" class="nav-action-btn"><i class="far fa-heart"></i><span class="badge-counter wishlist-count-badge" style="display: none;">0</span></a>
+          <a href="cart.html" class="nav-action-btn"><i class="fas fa-shopping-bag"></i><span class="badge-counter cart-count-badge" style="display: none;">0</span></a>
+          <div id="nav-auth-container" class="d-flex align-items-center"></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <div class="text-center max-w-700 mx-auto mb-5">
+      <h2 class="fw-bold mb-2">Marketplace Categories</h2>
+      <p class="text-muted">Browse through our comprehensive range of product categories supplied by verified merchants.</p>
+    </div>
+
+    <div class="row g-4" id="categories-full-grid">
+      <!-- Populated dynamically -->
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="marketplace-footer">
+    <div class="container text-center text-muted small">
+      <p class="mb-0">&copy; 2026 Digital Marketplace Management Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- API Script -->
+  <script src="js/api.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const container = document.getElementById('categories-full-grid');
+      try {
+        const categories = await apiFetch('/categories');
+        let html = '';
+        categories.forEach(c => {
+          const catUrl = resolvePageUrl(`products.html?category_id=${c.id}`);
+          html += `
+            <div class="col-lg-3 col-md-4 col-sm-6">
+              <a href="${catUrl}" class="category-card text-decoration-none">
+                <div class="category-icon-box">
+                  <i class="fas ${c.icon || 'fa-box'}"></i>
+                </div>
+                <h5 class="fw-bold mb-1">${c.name}</h5>
+                <p class="small text-muted mb-2">${c.description || 'Explore products'}</p>
+                <span class="badge bg-primary-subtle text-primary fw-semibold">${c.product_count || 0} Products</span>
+              </a>
+            </div>
+          `;
+        });
+        container.innerHTML = html;
+      } catch (err) {
+        container.innerHTML = `<div class="col-12 alert alert-danger">${err.message}</div>`;
+      }
+    });
+  </script>
+</body>
+</html>

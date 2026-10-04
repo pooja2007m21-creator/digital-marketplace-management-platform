@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Marketplace - Discover Products. Shop Smarter.</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/marketplace.css">
+</head>
+<body>
+
+  <!-- NAVIGATION BAR -->
+  <nav class="navbar navbar-expand-lg navbar-marketplace">
+    <div class="container">
+      <a class="navbar-brand brand-logo" href="index.html">
+        <i class="fas fa-cubes-stacked text-primary"></i>
+        <span>Market</span>Place
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#marketplaceNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="marketplaceNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.html">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="products.html?has_discount=true">Offers</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-3">
+          <!-- Wishlist button -->
+          <a href="wishlist.html" class="nav-action-btn" title="Saved Wishlist">
+            <i class="far fa-heart"></i>
+            <span class="badge-counter wishlist-count-badge" style="display: none;">0</span>
+          </a>
+
+          <!-- Cart button -->
+          <a href="cart.html" class="nav-action-btn" title="Shopping Cart">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="badge-counter cart-count-badge" style="display: none;">0</span>
+          </a>
+
+          <!-- User Auth dropdown or Login/Register buttons -->
+          <div id="nav-auth-container" class="d-flex align-items-center">
+            <!-- Populated dynamically by api.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="hero-section">
+    <div class="container position-relative" style="z-index: 2;">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <span class="badge bg-primary-subtle text-primary fw-bold px-3 py-2 rounded-pill mb-3">
+            <i class="fas fa-bolt me-1"></i> Multi-Vendor Digital Marketplace 2026
+          </span>
+          <h1 class="hero-heading">
+            Discover Products.<br><span>Shop Smarter.</span>
+          </h1>
+          <p class="hero-subtitle">
+            Explore thousands of verified products from multiple trusted sellers through one simple, seamless, and secure digital marketplace.
+          </p>
+
+          <!-- Search Box -->
+          <form class="hero-search-box mb-4" onsubmit="event.preventDefault(); const q = document.getElementById('hero-search-input').value; window.location.href = resolvePageUrl('products.html?search=' + encodeURIComponent(q));">
+            <i class="fas fa-search text-muted ms-3 fs-5"></i>
+            <input type="text" id="hero-search-input" placeholder="Search laptops, shirts, books, audio, watches...">
+            <button type="submit" class="btn btn-primary rounded-pill px-4">Search</button>
+          </form>
+
+          <div class="d-flex flex-wrap gap-3">
+            <a href="products.html" class="btn btn-light btn-lg fw-bold px-4">
+              <i class="fas fa-shopping-cart me-2 text-primary"></i>Start Shopping
+            </a>
+            <a href="register.html?role=SELLER" class="btn btn-outline-light btn-lg fw-bold px-4">
+              <i class="fas fa-store me-2"></i>Sell on Marketplace
+            </a>
+          </div>
+        </div>
+
+        <div class="col-lg-5 d-none d-lg-block text-center">
+          <div class="p-4 bg-white bg-opacity-10 rounded-4 backdrop-blur border border-white border-opacity-20 shadow-lg">
+            <i class="fas fa-shield-halved text-warning fs-1 mb-3"></i>
+            <h4 class="text-white fw-bold mb-2">Verified & Secure</h4>
+            <p class="text-white-50 small mb-0">Role-based merchant validation, instant inventory updates, JWT security, and verified buyer reviews.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- VALUE PROPOSITIONS -->
+    <section class="mb-5">
+      <div class="row g-3">
+        <div class="col-md-3 col-6">
+          <div class="card card-custom p-3 text-center h-100">
+            <i class="fas fa-truck-fast fs-2 text-primary mb-2"></i>
+            <h6 class="fw-bold mb-1">Fast Delivery</h6>
+            <span class="text-muted small">Free shipping above ₹1,000</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="card card-custom p-3 text-center h-100">
+            <i class="fas fa-award fs-2 text-success mb-2"></i>
+            <h6 class="fw-bold mb-1">Verified Sellers</h6>
+            <span class="text-muted small">Admin approved merchants</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="card card-custom p-3 text-center h-100">
+            <i class="fas fa-shield-check fs-2 text-info mb-2"></i>
+            <h6 class="fw-bold mb-1">Simulated Checkout</h6>
+            <span class="text-muted small">Instant simulated payments & COD</span>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="card card-custom p-3 text-center h-100">
+            <i class="fas fa-headset fs-2 text-warning mb-2"></i>
+            <h6 class="fw-bold mb-1">24/7 Support</h6>
+            <span class="text-muted small">Dedicated customer care</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED CATEGORIES -->
+    <section class="mb-5">
+      <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+          <span class="text-primary fw-bold text-uppercase small letter-spacing-1">Explore</span>
+          <h3 class="fw-bold mb-0">Featured Categories</h3>
+        </div>
+        <a href="categories.html" class="btn btn-outline-primary btn-sm">View All <i class="fas fa-arrow-right ms-1"></i></a>
+      </div>
+
+      <div class="row g-3" id="home-categories-grid">
+        <!-- Loaded dynamically -->
+      </div>
+    </section>
+
+    <!-- POPULAR & TRENDING PRODUCTS -->
+    <section class="mb-5">
+      <div class="d-flex justify-content-between align-items-end mb-4">
+        <div>
+          <span class="text-danger fw-bold text-uppercase small letter-spacing-1">Trending Deals</span>
+          <h3 class="fw-bold mb-0">Popular Marketplace Products</h3>
+        </div>
+        <a href="products.html" class="btn btn-outline-primary btn-sm">View Catalog <i class="fas fa-arrow-right ms-1"></i></a>
+      </div>
+
+      <div class="row" id="home-popular-products-grid">
+        <!-- Loaded dynamically -->
+      </div>
+    </section>
+
+    <!-- SPECIAL OFFERS BANNER -->
+    <section class="mb-5">
+      <div class="card card-custom bg-dark text-white p-4 p-md-5 overflow-hidden position-relative">
+        <div class="row align-items-center position-relative" style="z-index: 2;">
+          <div class="col-md-8">
+            <span class="badge bg-danger mb-2">LIMITED TIME PROMOTION</span>
+            <h2 class="fw-bold mb-2">Save up to 25% on Electronics & Fashion</h2>
+            <p class="text-white-50 mb-4">Enjoy exceptional discounts directly from verified marketplace vendors with live stock tracking.</p>
+            <a href="products.html?has_discount=true" class="btn btn-primary btn-lg">Shop Special Offers</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="marketplace-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="brand-logo text-white mb-3">
+            <i class="fas fa-cubes-stacked text-primary"></i>
+            <span class="text-white">Market</span>Place
+          </div>
+          <p class="small text-muted mb-3">
+            Full-Stack Web Technology Project demonstrating modern REST APIs, JWT Role-Based Access Control (Admin, Seller, Customer), Inventory Management, and Simulated Payments.
+          </p>
+          <div class="d-flex gap-2">
+            <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle"><i class="fab fa-github"></i></a>
+            <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="btn btn-sm btn-outline-secondary rounded-circle"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 col-6">
+          <h5>Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="categories.html">Categories</a></li>
+            <li><a href="products.html?has_discount=true">Special Offers</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 col-6">
+          <h5>Portals</h5>
+          <ul class="footer-links">
+            <li><a href="login.html">Customer Login</a></li>
+            <li><a href="seller/login.html">Seller Portal</a></li>
+            <li><a href="admin/login.html">Admin Portal</a></li>
+            <li><a href="register.html?role=SELLER">Become a Seller</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <h5>Developer Information</h5>
+          <p class="small text-muted mb-2"><i class="fas fa-laptop-code text-primary me-2"></i>Stack: Python FastAPI, SQLite/SQLAlchemy, Bootstrap 5, Vanilla JS</p>
+          <p class="small text-muted mb-2"><i class="fas fa-book-open text-info me-2"></i>Interactive API Docs: <a href="http://127.0.0.1:8000/docs" target="_blank" class="text-white">/docs (Swagger UI)</a></p>
+          <p class="small text-muted"><i class="fas fa-check-double text-success me-2"></i>Academic Web Technology Project Demonstration</p>
+        </div>
+      </div>
+
+      <div class="footer-bottom text-center text-muted">
+        <p class="mb-0">&copy; 2026 Digital Marketplace Management Platform. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- API & Core Scripts -->
+  <script src="js/api.js"></script>
+  <script src="js/products.js"></script>
+
+  <!-- Inline Home Loader -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      // 1. Load Categories
+      const catContainer = document.getElementById('home-categories-grid');
+      if (catContainer) {
+        try {
+          const categories = await apiFetch('/categories');
+          let catHtml = '';
+          categories.slice(0, 8).forEach(c => {
+            const catUrl = resolvePageUrl(`products.html?category_id=${c.id}`);
+            catHtml += `
+              <div class="col-lg-3 col-md-4 col-6">
+                <a href="${catUrl}" class="category-card text-decoration-none">
+                  <div class="category-icon-box">
+                    <i class="fas ${c.icon || 'fa-box'}"></i>
+                  </div>
+                  <h6 class="fw-bold mb-1">${c.name}</h6>
+                  <span class="text-muted small">${c.product_count || 0} Products</span>
+                </a>
+              </div>
+            `;
+          });
+          catContainer.innerHTML = catHtml;
+        } catch (e) {}
+      }
+
+      // 2. Load Popular Products
+      const prodContainer = document.getElementById('home-popular-products-grid');
+      if (prodContainer) {
+        try {
+          const res = await apiFetch('/products?page_size=8&sort_by=popularity');
+          let pHtml = '';
+          res.items.forEach(p => {
+            const discountBadge = p.discount > 0 ? `<div class="discount-badge">-${p.discount}% OFF</div>` : '';
+            const detailUrl = resolvePageUrl(`product-details.html?id=${p.id}`);
+            const imageUrl = formatProductImage(p.image);
+
+            pHtml += `
+              <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="product-card">
+                  ${discountBadge}
+                  <button class="wishlist-btn-corner" onclick="addToWishlist(${p.id})">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                  <div class="product-image-wrap">
+                    <a href="${detailUrl}">
+                      <img src="${imageUrl}" alt="${p.name}">
+                    </a>
+                  </div>
+                  <div class="product-body">
+                    <span class="product-category-tag">${p.category_name || 'Marketplace'}</span>
+                    <a href="${detailUrl}" class="product-title">${p.name}</a>
+                    <div class="product-seller-name"><i class="fas fa-store me-1"></i>${p.seller_name || 'Seller'}</div>
+                    <div class="mb-2">${renderStars(p.rating_avg || 0)}</div>
+                    <div class="product-price-row">
+                      <span class="price-current">${formatCurrency(p.final_price)}</span>
+                      ${p.discount > 0 ? `<span class="price-original">${formatCurrency(p.price)}</span>` : ''}
+                    </div>
+                    <div class="d-grid gap-2 mt-3">
+                      <button class="btn btn-primary btn-sm" onclick="addToCart(${p.id})">
+                        <i class="fas fa-cart-plus me-1"></i>Add to Cart
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+          });
+          prodContainer.innerHTML = pHtml;
+        } catch (e) {}
+      }
+    });
+  </script>
+</body>
+</html>

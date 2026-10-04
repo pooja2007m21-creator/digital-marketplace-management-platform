@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details - Digital Marketplace</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/marketplace.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-marketplace">
+    <div class="container">
+      <a class="navbar-brand brand-logo" href="/index.html">
+        <i class="fas fa-cubes-stacked text-primary"></i>
+        <span>Market</span>Place
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#marketplaceNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="marketplaceNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+          <li class="nav-item"><a class="nav-link" href="/index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/products.html">Products</a></li>
+          <li class="nav-item"><a class="nav-link" href="/categories.html">Categories</a></li>
+          <li class="nav-item"><a class="nav-link" href="/products.html?has_discount=true">Offers</a></li>
+        </ul>
+
+        <div class="d-flex align-items-center gap-3">
+          <a href="/wishlist.html" class="nav-action-btn" title="Saved Wishlist">
+            <i class="far fa-heart"></i>
+            <span class="badge-counter wishlist-count-badge" style="display: none;">0</span>
+          </a>
+          <a href="/cart.html" class="nav-action-btn" title="Shopping Cart">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="badge-counter cart-count-badge" style="display: none;">0</span>
+          </a>
+          <div id="nav-auth-container" class="d-flex align-items-center"></div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-4" id="product-details-container">
+    
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb small">
+        <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="/products.html">Products</a></li>
+        <li class="breadcrumb-item active" id="p-category" aria-current="page">Category</li>
+      </ol>
+    </nav>
+
+    <div class="row g-4 mb-5">
+      <!-- Image Column -->
+      <div class="col-lg-5">
+        <div class="product-gallery-main p-3 text-center shadow-sm">
+          <img id="p-image" src="/assets/images/placeholder.svg" alt="Product Image" class="img-fluid rounded">
+        </div>
+      </div>
+
+      <!-- Info Column -->
+      <div class="col-lg-7">
+        <div class="card card-custom p-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge bg-light text-primary border" id="p-brand">Brand</span>
+            <span id="p-stock-badge" class="stock-tag stock-in">In Stock</span>
+          </div>
+
+          <h2 class="fw-bold mb-2" id="p-title">Loading Product...</h2>
+          
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <div id="p-rating-stars"></div>
+            <span class="text-muted small" id="reviews-total-count">(0 reviews)</span>
+          </div>
+
+          <div class="p-3 bg-light rounded-3 mb-3">
+            <div class="d-flex align-items-baseline gap-3">
+              <span class="fs-2 fw-bold text-dark" id="p-price-final">₹0.00</span>
+              <span class="text-muted text-decoration-line-through fs-5" id="p-price-original"></span>
+              <span class="badge bg-danger d-none" id="p-discount-badge"></span>
+            </div>
+            <small class="text-muted">Inclusive of all applicable platform taxes</small>
+          </div>
+
+          <!-- Low Stock Alert Warning -->
+          <div id="p-low-stock-alert" class="alert alert-warning py-2 px-3 small d-none mb-3">
+            <i class="fas fa-fire me-1 text-danger"></i>
+            <strong>Hurry!</strong> Only <span id="p-low-stock-count">0</span> items left in stock.
+          </div>
+
+          <div class="mb-3 small text-muted">
+            <div><i class="fas fa-store me-2 text-secondary"></i>Sold & Fulfilled by: <strong class="text-dark" id="p-seller">Seller</strong></div>
+            <div><i class="fas fa-barcode me-2 text-secondary"></i>SKU: <code id="p-sku"></code></div>
+          </div>
+
+          <p class="text-muted mb-4" id="p-description"></p>
+
+          <!-- Action Controls -->
+          <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
+            <div class="input-group" style="width: 140px;">
+              <button class="btn btn-outline-secondary" type="button" onclick="adjustDetailQuantity(-1)">-</button>
+              <input type="text" id="detail-qty-input" class="form-control text-center fw-bold" value="1" readonly>
+              <button class="btn btn-outline-secondary" type="button" onclick="adjustDetailQuantity(1)">+</button>
+            </div>
+
+            <button class="btn btn-primary px-4 py-2" id="p-btn-add-cart" onclick="handleDetailAddToCart()">
+              <i class="fas fa-cart-plus me-2"></i>Add to Cart
+            </button>
+
+            <button class="btn btn-success px-4 py-2" id="p-btn-buy-now" onclick="handleDetailBuyNow()">
+              <i class="fas fa-bolt me-2"></i>Buy Now
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- SPECIFICATIONS & VERIFIED REVIEWS TABS -->
+    <div class="card card-custom p-4 mb-5">
+      <ul class="nav nav-tabs mb-4" id="productDetailTabs" role="tablist">
+        <li class="nav-item">
+          <button class="nav-link active fw-bold" data-bs-toggle="tab" data-bs-target="#tab-specs">Technical Specifications</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#tab-reviews">Customer Reviews</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="productDetailTabsContent">
+        <!-- Specs Tab -->
+        <div class="tab-pane fade show active" id="tab-specs">
+          <table class="table table-bordered spec-table mb-0">
+            <tbody id="p-specifications-body">
+              <tr><td colspan="2" class="text-muted">No specifications specified.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div class="tab-pane fade" id="tab-reviews">
+          <div class="row g-4">
+            <!-- Left: Reviews List -->
+            <div class="col-lg-7">
+              <div class="d-flex align-items-center gap-3 mb-3 border-bottom pb-2">
+                <h5 class="fw-bold mb-0">Customer Ratings</h5>
+                <div id="reviews-avg-rating"></div>
+              </div>
+              <div id="reviews-list-container">
+                <!-- Loaded dynamically -->
+              </div>
+            </div>
+
+            <!-- Right: Submit Review (Verified Buyers) -->
+            <div class="col-lg-5">
+              <div class="card bg-light border-0 p-3 rounded-3">
+                <h6 class="fw-bold mb-2"><i class="fas fa-pen-nib me-2 text-primary"></i>Write a Verified Review</h6>
+                <p class="small text-muted mb-3">Share your experience to help fellow buyers.</p>
+
+                <form id="submit-review-form">
+                  <div class="mb-3">
+                    <label class="form-label small fw-bold">Your Rating:</label>
+                    <div class="rating-input d-flex gap-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="review_rating" id="star5" value="5" checked>
+                        <label class="form-check-label small" for="star5">5 ★</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="review_rating" id="star4" value="4">
+                        <label class="form-check-label small" for="star4">4 ★</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="review_rating" id="star3" value="3">
+                        <label class="form-check-label small" for="star3">3 ★</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="review_rating" id="star2" value="2">
+                        <label class="form-check-label small" for="star2">2 ★</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="review_rating" id="star1" value="1">
+                        <label class="form-check-label small" for="star1">1 ★</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mb-2">
+                    <label class="form-label small fw-semibold">Review Title:</label>
+                    <input type="text" class="form-control form-control-sm" id="review-title" placeholder="e.g. Excellent build quality and fast shipping" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label small fw-semibold">Detailed Review:</label>
+                    <textarea class="form-control form-control-sm" id="review-comment" rows="3" placeholder="Describe what you liked or disliked about this product..." required></textarea>
+                  </div>
+
+                  <button type="submit" class="btn btn-primary btn-sm w-100">Submit Customer Review</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="marketplace-footer">
+    <div class="container text-center text-muted small">
+      <p class="mb-0">&copy; 2026 Digital Marketplace Management Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- API & Product Details JS -->
+  <script src="/js/api.js"></script>
+  <script src="/js/products.js"></script>
+  <script src="/js/product-details.js"></script>
+</body>
+</html>

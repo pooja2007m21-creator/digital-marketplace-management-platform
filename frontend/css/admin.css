@@ -1,0 +1,10 @@
+/* Admin Portal Specific Styles */
+.admin-badge-role {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+.role-admin { background: #fee2e2; color: #991b1b; }
+.role-seller { background: #e0e7ff; color: #3730a3; }
+.role-customer { background: #f1f5f9; color: #334155; }

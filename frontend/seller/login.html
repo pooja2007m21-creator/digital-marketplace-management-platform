@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seller Portal Login - Digital Marketplace</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-light bg-white border-bottom py-3">
+    <div class="container justify-content-between">
+      <a class="navbar-brand brand-logo" href="/index.html">
+        <i class="fas fa-store text-primary"></i>
+        <span>Merchant</span>Center
+      </a>
+      <a href="/index.html" class="btn btn-outline-secondary btn-sm">
+        <i class="fas fa-arrow-left me-1"></i>Back to Marketplace
+      </a>
+    </div>
+  </nav>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header" style="background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);">
+        <h3><i class="fas fa-store me-2"></i>Seller Portal</h3>
+        <p>Manage your inventory, track orders, and view sales</p>
+      </div>
+
+      <div class="auth-body">
+        <form id="login-form">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="login-identifier" placeholder="Seller Email or Username" required>
+            <label for="login-identifier">Seller Email or Username</label>
+          </div>
+
+          <div class="form-floating mb-4">
+            <input type="password" class="form-control" id="login-password" placeholder="Password" required>
+            <label for="login-password">Password</label>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 py-2 fs-6 mb-3">
+            <i class="fas fa-sign-in-alt me-2"></i>Access Seller Dashboard
+          </button>
+
+          <div class="text-center small text-muted">
+            Want to become a seller? <a href="/register.html?role=SELLER" class="fw-bold">Register your Store</a>
+          </div>
+        </form>
+
+        <div class="demo-credentials-box mt-4">
+          <div class="small fw-bold text-primary mb-2"><i class="fas fa-bolt me-1"></i>Demo Seller Accounts:</div>
+          <span class="demo-chip" onclick="fillDemoCredentials('apextech@marketplace.com', 'seller123')">
+            Apex Tech Hub (Approved)
+          </span>
+          <span class="demo-chip" onclick="fillDemoCredentials('voguetrends@marketplace.com', 'seller123')">
+            Vogue Trends (Approved)
+          </span>
+          <span class="demo-chip" onclick="fillDemoCredentials('bookcraft@marketplace.com', 'seller123')">
+            BookCraft (Pending Approval)
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

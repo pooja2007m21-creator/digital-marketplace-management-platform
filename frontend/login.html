@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Digital Marketplace Platform</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome 6 -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+</head>
+<body>
+
+  <!-- SIMPLE NAVBAR -->
+  <nav class="navbar navbar-light bg-white border-bottom py-3">
+    <div class="container justify-content-between">
+      <a class="navbar-brand brand-logo" href="/index.html">
+        <i class="fas fa-cubes-stacked text-primary"></i>
+        <span>Market</span>Place
+      </a>
+      <a href="/index.html" class="btn btn-outline-secondary btn-sm">
+        <i class="fas fa-arrow-left me-1"></i>Back to Marketplace
+      </a>
+    </div>
+  </nav>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h3><i class="fas fa-lock me-2"></i>Welcome Back</h3>
+        <p>Sign in to access your marketplace account</p>
+      </div>
+
+      <div class="auth-body">
+        <form id="login-form">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="login-identifier" placeholder="Email or Username" required>
+            <label for="login-identifier"><i class="fas fa-user text-muted me-1"></i>Username or Email</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="login-password" placeholder="Password" required>
+            <label for="login-password"><i class="fas fa-key text-muted me-1"></i>Password</label>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="remember-me">
+              <label class="form-check-label small" for="remember-me">Remember Me</label>
+            </div>
+            <a href="javascript:void(0)" class="small" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Forgot Password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100 py-2 fs-6 mb-3">
+            <i class="fas fa-sign-in-alt me-2"></i>Sign In
+          </button>
+
+          <div class="text-center small text-muted">
+            Don't have an account yet? <a href="/register.html" class="fw-bold">Create Account</a>
+          </div>
+        </form>
+
+        <!-- 1-CLICK DEMO CREDENTIAL CHIPS -->
+        <div class="demo-credentials-box">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="small fw-bold text-primary"><i class="fas fa-bolt me-1"></i>Demo Fast-Fill:</span>
+            <span class="badge bg-primary">Project Showcase</span>
+          </div>
+          <div class="d-flex flex-wrap">
+            <span class="demo-chip" onclick="fillDemoCredentials('admin@marketplace.com', 'admin123')">
+              <i class="fas fa-shield-halved me-1"></i>Admin
+            </span>
+            <span class="demo-chip" onclick="fillDemoCredentials('apextech@marketplace.com', 'seller123')">
+              <i class="fas fa-store me-1"></i>Seller (Apex Tech)
+            </span>
+            <span class="demo-chip" onclick="fillDemoCredentials('voguetrends@marketplace.com', 'seller123')">
+              <i class="fas fa-tshirt me-1"></i>Seller (Vogue)
+            </span>
+            <span class="demo-chip" onclick="fillDemoCredentials('john.doe@example.com', 'customer123')">
+              <i class="fas fa-user me-1"></i>Customer (John)
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- FORGOT PASSWORD MODAL -->
+  <div class="modal fade" id="forgotPasswordModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold"><i class="fas fa-key text-primary me-2"></i>Reset Password</h5>
+          <button type="button" class="btn-close" data-bs-toggle="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="forgot-password-form" class="mb-3">
+            <label class="form-label small fw-semibold">Enter your registered email address:</label>
+            <div class="input-group mb-3">
+              <input type="email" class="form-control" id="forgot-email" placeholder="e.g. john.doe@example.com" required>
+              <button class="btn btn-outline-primary" type="submit">Send Code</button>
+            </div>
+          </form>
+
+          <div id="reset-box" class="d-none border-top pt-3">
+            <form id="reset-password-form">
+              <div class="mb-2">
+                <label class="form-label small fw-semibold">Reset Code (Check toast for demo code):</label>
+                <input type="text" class="form-control form-control-sm" id="reset-code" placeholder="123456" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label small fw-semibold">New Password:</label>
+                <input type="password" class="form-control form-control-sm" id="reset-new-password" placeholder="At least 6 characters" required>
+              </div>
+              <button type="submit" class="btn btn-primary btn-sm w-100">Set New Password</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- API & Auth JS -->
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>
